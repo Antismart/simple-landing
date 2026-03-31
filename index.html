@@ -8,7 +8,8 @@
   <meta property="og:title" content="Moses Timbwa — Protocol Engineer & Web3 Builder">
   <meta property="og:description" content="Building infrastructure for the decentralized web. Censorship-resistant systems, P2P networks, and cryptography.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0a0a0b">
+  <meta name="theme-color" content="#06060a">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310b981'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='monospace' font-size='18' font-weight='bold' fill='%23060610'%3EM%3C/text%3E%3C/svg%3E">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -46,6 +47,38 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+    }
+
+    /* ---- DOT GRID BACKGROUND ---- */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---- SCROLL PROGRESS BAR ---- */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
     }
 
     a {
@@ -104,8 +137,8 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+      50% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
     }
 
     .nav-links {
@@ -137,12 +170,12 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -40px;
+      top: -80px;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, rgba(16, 185, 129, 0.02) 40%, transparent 70%);
       pointer-events: none;
     }
 
@@ -170,6 +203,7 @@
       height: 6px;
       border-radius: 50%;
       background: var(--accent);
+      animation: pulse 3s ease-in-out infinite;
     }
 
     .hero h1 {
@@ -252,7 +286,8 @@
     .btn-primary:hover {
       background: var(--accent-hover);
       color: var(--bg-primary);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
+      transform: translateY(-1px);
     }
 
     .btn-secondary {
@@ -263,6 +298,7 @@
     .btn-secondary:hover {
       border-color: var(--text-muted);
       color: var(--text-primary);
+      transform: translateY(-1px);
     }
 
     /* ---- SECTIONS ---- */
@@ -300,6 +336,25 @@
       background: var(--border);
     }
 
+    /* ---- REVEAL ANIMATIONS ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.06s; }
+    .reveal-delay-2 { transition-delay: 0.12s; }
+    .reveal-delay-3 { transition-delay: 0.18s; }
+    .reveal-delay-4 { transition-delay: 0.24s; }
+    .reveal-delay-5 { transition-delay: 0.30s; }
+
     /* ---- PROJECTS ---- */
     .project-grid {
       display: grid;
@@ -335,7 +390,7 @@
       border-color: var(--border-hover);
       background: var(--bg-card-hover);
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.05);
     }
 
     .project-card:hover::before {
@@ -380,14 +435,14 @@
 
     .project-card h3 a .arrow {
       opacity: 0;
-      transform: translateX(-4px);
-      transition: all 0.2s;
+      transform: translate(-4px, 2px);
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
       font-size: 0.85em;
     }
 
     .project-card:hover h3 a .arrow {
       opacity: 1;
-      transform: translateX(0);
+      transform: translate(0, 0);
     }
 
     .project-card h3 a:hover { color: var(--accent); }
@@ -451,6 +506,13 @@
       background: var(--bg-secondary);
       color: var(--text-muted);
       border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--text-muted);
+      color: var(--text-secondary);
+      background: var(--bg-card);
     }
 
     .project-chain {
@@ -482,7 +544,7 @@
 
     /* ---- CHAINS ---- */
     .chains-section {
-      margin-top: 20px;
+      margin-top: 24px;
     }
 
     .chains-row {
@@ -499,11 +561,13 @@
       background: var(--bg-card);
       color: var(--text-muted);
       border: 1px solid var(--border);
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
 
     .chain-badge:hover {
       border-color: var(--text-muted);
+      color: var(--text-secondary);
+      transform: translateY(-1px);
     }
 
     /* ---- SKILLS ---- */
@@ -518,11 +582,13 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 22px;
-      transition: border-color 0.2s;
+      transition: all 0.3s;
     }
 
     .skill-group:hover {
       border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
 
     .skill-group h3 {
@@ -547,6 +613,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .skill-group:hover li {
+      color: var(--text-primary);
     }
 
     .skill-group li::before {
@@ -556,6 +627,11 @@
       border-radius: 1px;
       background: var(--text-muted);
       flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .skill-group:hover li::before {
+      background: var(--accent);
     }
 
     /* ---- CONTACT ---- */
@@ -591,6 +667,7 @@
       background: var(--bg-card-hover);
       color: var(--text-primary);
       transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
 
     .contact-link svg {
@@ -653,34 +730,22 @@
       color: var(--text-muted);
       font-size: 0.75rem;
       font-family: var(--font-mono);
+      transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--text-secondary); }
 
-    /* ---- ANIMATIONS ---- */
+    /* ---- HERO ANIMATIONS (always on load) ---- */
     @media (prefers-reduced-motion: no-preference) {
-      .fade-up {
-        opacity: 0;
-        transform: translateY(16px);
-        animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-
-      @keyframes fadeUp {
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .delay-1 { animation-delay: 0.05s; }
-      .delay-2 { animation-delay: 0.1s; }
-      .delay-3 { animation-delay: 0.15s; }
-      .delay-4 { animation-delay: 0.2s; }
-      .delay-5 { animation-delay: 0.25s; }
-      .delay-6 { animation-delay: 0.3s; }
-      .delay-7 { animation-delay: 0.35s; }
-
       .hero-badge { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards; }
       .hero h1 { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards; }
       .hero-bio { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.26s forwards; }
       .hero-stats { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s forwards; }
       .hero-actions { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards; }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
     }
 
     /* ---- RESPONSIVE ---- */
@@ -688,25 +753,11 @@
       .hero { padding: 72px 0 56px; }
       section { padding: 56px 0; }
 
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-featured .project-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stats {
-        gap: 24px;
-      }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-featured .project-inner { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
 
       .nav-links a {
         padding: 6px 8px;
@@ -722,9 +773,16 @@
       .chains-row { gap: 6px; }
       .chain-badge { font-size: 0.68rem; padding: 5px 10px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-progress { display: none; }
+    }
   </style>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <nav aria-label="Main navigation">
     <div class="container">
@@ -739,7 +797,7 @@
 
   <header class="hero">
     <div class="container">
-      <div class="hero-badge"><span class="badge-dot"></span> Available for collaborations</div>
+      <div class="hero-badge"><span class="badge-dot"></span> Currently building ShadowMesh</div>
       <h1>Building the <span class="accent">infrastructure</span> for a decentralized web.</h1>
       <p class="hero-bio">I'm a protocol engineer focused on censorship-resistant systems, ZK cryptography, and P2P networks. Currently building ShadowMesh — a decentralized CDN. Based in Nairobi, shipping from anywhere.</p>
 
@@ -779,7 +837,7 @@
 
     <section id="projects">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-number">01</span>
           <h2>Featured Projects</h2>
           <div class="section-line"></div>
@@ -788,7 +846,7 @@
         <div class="project-grid">
 
           <!-- FLAGSHIP: ShadowMesh -->
-          <article class="project-card project-featured fade-up delay-1">
+          <article class="project-card project-featured reveal">
             <div class="project-inner">
               <div>
                 <div class="project-card-top">
@@ -812,7 +870,7 @@
           </article>
 
           <!-- Satsu -->
-          <article class="project-card fade-up delay-2">
+          <article class="project-card reveal reveal-delay-1">
             <div class="project-card-top">
               <h3><a href="https://github.com/Antismart/satsu" target="_blank" rel="noopener noreferrer">Satsu <span class="arrow">&nearr;</span></a></h3>
               <span class="project-status status-shipped">Shipped</span>
@@ -829,7 +887,7 @@
           </article>
 
           <!-- MicroCrop EVM -->
-          <article class="project-card fade-up delay-3">
+          <article class="project-card reveal reveal-delay-2">
             <div class="project-card-top">
               <h3><a href="https://github.com/Antismart/microcrop-evm" target="_blank" rel="noopener noreferrer">MicroCrop <span class="arrow">&nearr;</span></a></h3>
               <span class="project-status status-shipped">Shipped</span>
@@ -846,7 +904,7 @@
           </article>
 
           <!-- Warden -->
-          <article class="project-card fade-up delay-4">
+          <article class="project-card reveal reveal-delay-3">
             <div class="project-card-top">
               <h3><a href="https://github.com/Antismart/warden" target="_blank" rel="noopener noreferrer">Warden <span class="arrow">&nearr;</span></a></h3>
               <span class="project-status status-hackathon">Hackathon</span>
@@ -863,7 +921,7 @@
           </article>
 
           <!-- Whale-opoly -->
-          <article class="project-card fade-up delay-5">
+          <article class="project-card reveal reveal-delay-4">
             <div class="project-card-top">
               <h3><a href="https://github.com/Antismart/whale-opoly" target="_blank" rel="noopener noreferrer">Whale-opoly <span class="arrow">&nearr;</span></a></h3>
               <span class="project-status status-shipped">Shipped</span>
@@ -881,7 +939,7 @@
 
         </div>
 
-        <div class="chains-section">
+        <div class="chains-section reveal">
           <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; font-family: var(--font-mono);">Multi-chain experience:</p>
           <div class="chains-row">
             <span class="chain-badge">Ethereum / Base</span>
@@ -898,14 +956,14 @@
 
     <section id="skills">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-number">02</span>
           <h2>Stack</h2>
           <div class="section-line"></div>
         </div>
 
         <div class="skills-grid">
-          <div class="skill-group">
+          <div class="skill-group reveal reveal-delay-1">
             <h3>Languages</h3>
             <ul>
               <li>Rust</li>
@@ -917,7 +975,7 @@
             </ul>
           </div>
 
-          <div class="skill-group">
+          <div class="skill-group reveal reveal-delay-2">
             <h3>Protocols & Infra</h3>
             <ul>
               <li>libp2p / WebRTC</li>
@@ -929,7 +987,7 @@
             </ul>
           </div>
 
-          <div class="skill-group">
+          <div class="skill-group reveal reveal-delay-3">
             <h3>Focus Areas</h3>
             <ul>
               <li>P2P Systems</li>
@@ -946,16 +1004,16 @@
 
     <section id="contact">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-number">03</span>
           <h2>Get in Touch</h2>
           <div class="section-line"></div>
         </div>
 
         <div class="contact-grid">
-          <p class="contact-text">Open to collaborations, protocol discussions, hackathon teams, and interesting problems. Reach out anywhere.</p>
+          <p class="contact-text reveal">Open to collaborations, protocol discussions, hackathon teams, and interesting problems. Reach out anywhere.</p>
 
-          <a class="contact-link" href="https://github.com/Antismart" target="_blank" rel="noopener noreferrer">
+          <a class="contact-link reveal reveal-delay-1" href="https://github.com/Antismart" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             <div class="contact-info">
               <span class="contact-label">GitHub</span>
@@ -963,7 +1021,7 @@
             </div>
           </a>
 
-          <a class="contact-link" href="https://x.com/antismart_" target="_blank" rel="noopener noreferrer">
+          <a class="contact-link reveal reveal-delay-2" href="https://x.com/antismart_" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16h-4.267z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
             <div class="contact-info">
               <span class="contact-label">Twitter / X</span>
@@ -971,7 +1029,7 @@
             </div>
           </a>
 
-          <a class="contact-link" href="mailto:timbwamoses83@gmail.com">
+          <a class="contact-link reveal reveal-delay-3" href="mailto:timbwamoses83@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             <div class="contact-info">
               <span class="contact-label">Email</span>
@@ -979,7 +1037,7 @@
             </div>
           </a>
 
-          <a class="contact-link" href="https://github.com/Antismart/shadowmesh" target="_blank" rel="noopener noreferrer">
+          <a class="contact-link reveal reveal-delay-4" href="https://github.com/Antismart/shadowmesh" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
             <div class="contact-info">
               <span class="contact-label">Flagship</span>
@@ -1002,6 +1060,28 @@
       <p>Nairobi, Kenya</p>
     </div>
   </footer>
+
+  <script>
+    // Scroll progress bar
+    const progress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progress.style.width = pct + '%';
+    }, { passive: true });
+
+    // Intersection Observer for scroll-triggered reveals
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
 
 </body>
 </html>
