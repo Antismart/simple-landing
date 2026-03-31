@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>onchainchef — Protocol Engineer & Web3 Builder</title>
-  <meta name="description" content="Protocol engineer building infrastructure for the decentralized web. Focused on censorship-resistant systems, P2P networks, and cryptography. Based in Nairobi.">
-  <meta property="og:title" content="onchainchef — Protocol Engineer & Web3 Builder">
+  <title>Moses Timbwa — Protocol Engineer & Web3 Builder</title>
+  <meta name="description" content="Protocol engineer building decentralized infrastructure. Censorship-resistant systems, P2P networks, ZK cryptography, and multi-chain smart contracts. Based in Nairobi, Kenya.">
+  <meta property="og:title" content="Moses Timbwa — Protocol Engineer & Web3 Builder">
   <meta property="og:description" content="Building infrastructure for the decentralized web. Censorship-resistant systems, P2P networks, and cryptography.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0a0a0b">
@@ -17,24 +17,27 @@
     }
 
     :root {
-      --bg-primary: #0a0a0b;
-      --bg-secondary: #111113;
-      --bg-card: #18181b;
-      --text-primary: #fafafa;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
+      --bg-primary: #06060a;
+      --bg-secondary: #0c0c12;
+      --bg-card: #12121a;
+      --bg-card-hover: #16161f;
+      --text-primary: #f0f0f4;
+      --text-secondary: #9d9db0;
+      --text-muted: #5c5c72;
       --accent: #10b981;
+      --accent-dim: rgba(16, 185, 129, 0.15);
       --accent-hover: #34d399;
-      --border: #27272a;
+      --accent-glow: rgba(16, 185, 129, 0.08);
+      --border: #1e1e2a;
+      --border-hover: #2a2a3a;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-      --radius-sm: 6px;
-      --radius-md: 12px;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font-sans);
@@ -42,6 +45,7 @@
       color: var(--text-primary);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     a {
@@ -49,11 +53,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-
-    a:hover, a:focus-visible {
-      color: var(--accent-hover);
-    }
-
+    a:hover, a:focus-visible { color: var(--accent-hover); }
     a:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
@@ -61,7 +61,7 @@
     }
 
     .container {
-      max-width: 720px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -71,11 +71,11 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(10, 10, 11, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(6, 6, 10, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 16px 0;
+      padding: 14px 0;
     }
 
     nav .container {
@@ -86,102 +86,210 @@
 
     .nav-logo {
       font-family: var(--font-mono);
-      font-size: 0.9rem;
-      color: var(--accent);
+      font-size: 0.85rem;
+      color: var(--text-primary);
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 8px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
     }
 
     .nav-links a:hover {
       color: var(--text-primary);
+      background: var(--bg-card);
     }
 
     /* ---- HERO ---- */
     .hero {
-      padding: 96px 0 64px;
+      padding: 100px 0 80px;
+      position: relative;
     }
 
-    .hero-label {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      margin-bottom: 16px;
-      display: block;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
+    .hero .container {
+      position: relative;
     }
 
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 540px;
-      line-height: 1.7;
-    }
-
-    .hero-links {
-      margin-top: 32px;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .hero-links a {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      padding: 8px 0;
-      transition: color 0.2s;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      letter-spacing: 0.03em;
     }
 
-    .hero-links a:hover {
+    .hero-badge .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.12;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      max-width: 700px;
+    }
+
+    .hero h1 .accent {
       color: var(--accent);
     }
 
-    .hero-links svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 36px;
     }
 
-    /* ---- SECTION ---- */
-    section {
-      padding: 64px 0;
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      transition: all 0.25s;
+      font-weight: 500;
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: var(--bg-primary);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+      color: var(--text-primary);
+    }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 72px 0; }
 
     .section-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
+      gap: 14px;
+      margin-bottom: 36px;
     }
 
     .section-number {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--accent);
+      background: var(--accent-dim);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
     }
 
     .section-header h2 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
@@ -193,9 +301,9 @@
     }
 
     /* ---- PROJECTS ---- */
-    .project-list {
-      display: flex;
-      flex-direction: column;
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
 
@@ -204,20 +312,54 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 24px;
-      transition: border-color 0.25s, transform 0.25s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .project-card-header {
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.03) 100%);
+    }
+
+    .project-featured .project-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .project-card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .project-card h3 {
@@ -225,52 +367,149 @@
       font-weight: 600;
     }
 
-    .project-card h3 a {
-      color: var(--text-primary);
+    .project-featured h3 {
+      font-size: 1.2rem;
     }
 
-    .project-card h3 a:hover {
-      color: var(--accent);
+    .project-card h3 a {
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
+
+    .project-card h3 a .arrow {
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all 0.2s;
+      font-size: 0.85em;
+    }
+
+    .project-card:hover h3 a .arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .project-card h3 a:hover { color: var(--accent); }
 
     .project-status {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      padding: 3px 8px;
+      font-size: 0.65rem;
+      padding: 3px 10px;
       border-radius: 999px;
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--accent);
       white-space: nowrap;
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .status-active {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .status-shipped {
+      background: rgba(99, 102, 241, 0.1);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .status-hackathon {
+      background: rgba(251, 191, 36, 0.1);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.2);
     }
 
     .project-desc {
       color: var(--text-secondary);
-      font-size: 0.925rem;
+      font-size: 0.9rem;
       margin-bottom: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .project-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
     .tag {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 5px;
       background: var(--bg-secondary);
       color: var(--text-muted);
       border: 1px solid var(--border);
     }
 
+    .project-chain {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .chain-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    .chain-multi { background: var(--accent); }
+    .chain-base { background: #3b82f6; }
+    .chain-btc { background: #f59e0b; }
+    .chain-ckb { background: #22d3ee; }
+
+    .project-commits {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- CHAINS ---- */
+    .chains-section {
+      margin-top: 20px;
+    }
+
+    .chains-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chain-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .chain-badge:hover {
+      border-color: var(--text-muted);
+    }
+
     /* ---- SKILLS ---- */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
 
@@ -278,95 +517,117 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 20px;
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+
+    .skill-group:hover {
+      border-color: var(--border-hover);
     }
 
     .skill-group h3 {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       color: var(--accent);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .skill-group ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .skill-group li {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .skill-group li::before {
-      content: ">";
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      margin-right: 8px;
-      font-size: 0.8rem;
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 1px;
+      background: var(--text-muted);
+      flex-shrink: 0;
     }
 
     /* ---- CONTACT ---- */
-    .contact-text {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      margin-bottom: 24px;
-      max-width: 480px;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .contact-text {
+      grid-column: 1 / -1;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      max-width: 500px;
     }
 
     .contact-link {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       color: var(--text-secondary);
-      font-size: 0.95rem;
-      padding: 12px 16px;
+      font-size: 0.9rem;
+      padding: 16px 20px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      transition: border-color 0.2s, color 0.2s;
-      width: fit-content;
-      min-width: 280px;
+      transition: all 0.25s;
     }
 
     .contact-link:hover {
-      border-color: var(--accent);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
       color: var(--text-primary);
+      transform: translateY(-2px);
     }
 
     .contact-link svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
       color: var(--text-muted);
+      transition: color 0.2s;
     }
 
     .contact-link:hover svg {
       color: var(--accent);
     }
 
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
     .contact-label {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
-      min-width: 56px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .contact-value {
+      font-size: 0.88rem;
     }
 
     /* ---- FOOTER ---- */
     footer {
-      padding: 40px 0;
+      padding: 36px 0;
       border-top: 1px solid var(--border);
-      margin-top: 32px;
+      margin-top: 24px;
     }
 
     footer .container {
@@ -378,75 +639,88 @@
     }
 
     footer p {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       font-family: var(--font-mono);
     }
 
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+    .footer-links a:hover { color: var(--text-secondary); }
+
     /* ---- ANIMATIONS ---- */
     @media (prefers-reduced-motion: no-preference) {
-      .fade-in {
+      .fade-up {
         opacity: 0;
-        transform: translateY(12px);
-        animation: fadeIn 0.6s ease forwards;
+        transform: translateY(16px);
+        animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
 
-      .fade-in:nth-child(1) { animation-delay: 0s; }
-      .fade-in:nth-child(2) { animation-delay: 0.08s; }
-      .fade-in:nth-child(3) { animation-delay: 0.16s; }
-      .fade-in:nth-child(4) { animation-delay: 0.24s; }
-      .fade-in:nth-child(5) { animation-delay: 0.32s; }
-
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      .hero-label {
-        opacity: 0;
-        animation: fadeIn 0.5s ease 0.1s forwards;
-      }
+      .delay-1 { animation-delay: 0.05s; }
+      .delay-2 { animation-delay: 0.1s; }
+      .delay-3 { animation-delay: 0.15s; }
+      .delay-4 { animation-delay: 0.2s; }
+      .delay-5 { animation-delay: 0.25s; }
+      .delay-6 { animation-delay: 0.3s; }
+      .delay-7 { animation-delay: 0.35s; }
 
-      .hero h1 {
-        opacity: 0;
-        animation: fadeIn 0.5s ease 0.2s forwards;
-      }
-
-      .hero p {
-        opacity: 0;
-        animation: fadeIn 0.5s ease 0.3s forwards;
-      }
-
-      .hero-links {
-        opacity: 0;
-        animation: fadeIn 0.5s ease 0.4s forwards;
-      }
+      .hero-badge { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards; }
+      .hero h1 { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards; }
+      .hero-bio { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.26s forwards; }
+      .hero-stats { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s forwards; }
+      .hero-actions { opacity: 0; animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards; }
     }
 
     /* ---- RESPONSIVE ---- */
-    @media (max-width: 480px) {
-      .hero {
-        padding: 64px 0 48px;
+    @media (max-width: 640px) {
+      .hero { padding: 72px 0 56px; }
+      section { padding: 56px 0; }
+
+      .project-grid {
+        grid-template-columns: 1fr;
       }
 
-      section {
-        padding: 48px 0;
-      }
-
-      .nav-links {
-        gap: 16px;
-      }
-
-      .contact-link {
-        min-width: unset;
-        width: 100%;
+      .project-featured .project-inner {
+        grid-template-columns: 1fr;
       }
 
       .skills-grid {
         grid-template-columns: 1fr;
       }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .nav-links a {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+      }
+
+      .nav-links { gap: 4px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 56px 0 44px; }
+      .hero-stats { gap: 20px; }
+      .chains-row { gap: 6px; }
+      .chain-badge { font-size: 0.68rem; padding: 5px 10px; }
     }
   </style>
 </head>
@@ -454,10 +728,10 @@
 
   <nav aria-label="Main navigation">
     <div class="container">
-      <span class="nav-logo">~/onchainchef</span>
+      <span class="nav-logo"><span class="dot"></span> moses.dev</span>
       <ul class="nav-links">
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
+        <li><a href="#skills">Stack</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -465,21 +739,37 @@
 
   <header class="hero">
     <div class="container">
-      <span class="hero-label">// protocol engineer</span>
-      <h1>Building infrastructure for the decentralized web.</h1>
-      <p>I build protocols and tools for the sovereign internet. Currently focused on censorship-resistant content delivery and P2P systems. Based in Nairobi, shipping from anywhere.</p>
-      <div class="hero-links">
-        <a href="https://github.com/onchainchef" target="_blank" rel="noopener noreferrer">
+      <div class="hero-badge"><span class="badge-dot"></span> Available for collaborations</div>
+      <h1>Building the <span class="accent">infrastructure</span> for a decentralized web.</h1>
+      <p class="hero-bio">I'm a protocol engineer focused on censorship-resistant systems, ZK cryptography, and P2P networks. Currently building ShadowMesh — a decentralized CDN. Based in Nairobi, shipping from anywhere.</p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">100+</span>
+          <span class="stat-label">Repositories</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">7+</span>
+          <span class="stat-label">Chains shipped on</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">Rust</span>
+          <span class="stat-label">Primary language</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">Nairobi</span>
+          <span class="stat-label">Based in</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/Antismart" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
+          View GitHub
         </a>
-        <a href="https://twitter.com/onchainchef" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16h-4.267z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
-          Twitter
-        </a>
-        <a href="mailto:hello@onchainchef.dev">
+        <a class="btn btn-secondary" href="mailto:timbwamoses83@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Email
+          Get in touch
         </a>
       </div>
     </div>
@@ -491,64 +781,117 @@
       <div class="container">
         <div class="section-header">
           <span class="section-number">01</span>
-          <h2>Projects</h2>
+          <h2>Featured Projects</h2>
           <div class="section-line"></div>
         </div>
 
-        <div class="project-list">
-          <article class="project-card fade-in">
-            <div class="project-card-header">
-              <h3><a href="https://github.com/onchainchef/otter" target="_blank" rel="noopener noreferrer">Otter Protocol</a></h3>
-              <span class="project-status">Active</span>
-            </div>
-            <p class="project-desc">Censorship-resistant CDN for the sovereign internet. Decentralized content delivery with end-to-end encryption and peer-to-peer distribution.</p>
-            <div class="project-tags">
-              <span class="tag">Rust</span>
-              <span class="tag">libp2p</span>
-              <span class="tag">IPFS</span>
-              <span class="tag">ChaCha20-Poly1305</span>
+        <div class="project-grid">
+
+          <!-- FLAGSHIP: ShadowMesh -->
+          <article class="project-card project-featured fade-up delay-1">
+            <div class="project-inner">
+              <div>
+                <div class="project-card-top">
+                  <h3><a href="https://github.com/Antismart/shadowmesh" target="_blank" rel="noopener noreferrer">ShadowMesh <span class="arrow">&nearr;</span></a></h3>
+                  <span class="project-status status-active">Active</span>
+                </div>
+                <p class="project-desc">Censorship-resistant decentralized CDN combining IPFS-style content addressing with onion routing for privacy-preserving content delivery. Includes protocol layer, gateway, node runner, CLI, and browser SDK.</p>
+                <div class="project-meta">
+                  <div class="project-tags">
+                    <span class="tag">Rust</span>
+                    <span class="tag">libp2p</span>
+                    <span class="tag">WASM</span>
+                    <span class="tag">WebRTC</span>
+                    <span class="tag">BLAKE3</span>
+                    <span class="tag">ChaCha20</span>
+                  </div>
+                  <span class="project-commits">626 commits</span>
+                </div>
+              </div>
             </div>
           </article>
 
-          <article class="project-card fade-in">
-            <div class="project-card-header">
-              <h3><a href="#" target="_blank" rel="noopener noreferrer">P2P Relay</a></h3>
-              <span class="project-status">Building</span>
+          <!-- Satsu -->
+          <article class="project-card fade-up delay-2">
+            <div class="project-card-top">
+              <h3><a href="https://github.com/Antismart/satsu" target="_blank" rel="noopener noreferrer">Satsu <span class="arrow">&nearr;</span></a></h3>
+              <span class="project-status status-shipped">Shipped</span>
             </div>
-            <p class="project-desc">Lightweight relay node for NAT traversal in decentralized networks. Enables direct peer connections behind firewalls and restrictive networks.</p>
-            <div class="project-tags">
-              <span class="tag">Go</span>
-              <span class="tag">WebRTC</span>
-              <span class="tag">QUIC</span>
-            </div>
-          </article>
-
-          <article class="project-card fade-in">
-            <div class="project-card-header">
-              <h3><a href="#" target="_blank" rel="noopener noreferrer">Keypair CLI</a></h3>
-              <span class="project-status">Released</span>
-            </div>
-            <p class="project-desc">Minimal command-line tool for generating, managing, and signing with cryptographic key pairs. Supports Ed25519 and secp256k1.</p>
-            <div class="project-tags">
-              <span class="tag">Rust</span>
-              <span class="tag">Ed25519</span>
-              <span class="tag">secp256k1</span>
-              <span class="tag">CLI</span>
+            <p class="project-desc">Privacy payment layer for Bitcoin (Stacks L2) enabling fully private sBTC transactions via stealth addresses and ZK-STARK shielded pools.</p>
+            <div class="project-meta">
+              <div class="project-tags">
+                <span class="tag">Clarity</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">ZK-STARKs</span>
+              </div>
+              <span class="project-chain"><span class="chain-dot chain-btc"></span> Bitcoin/Stacks</span>
             </div>
           </article>
 
-          <article class="project-card fade-in">
-            <div class="project-card-header">
-              <h3><a href="#" target="_blank" rel="noopener noreferrer">Chain Watcher</a></h3>
-              <span class="project-status">Shipped</span>
+          <!-- MicroCrop EVM -->
+          <article class="project-card fade-up delay-3">
+            <div class="project-card-top">
+              <h3><a href="https://github.com/Antismart/microcrop-evm" target="_blank" rel="noopener noreferrer">MicroCrop <span class="arrow">&nearr;</span></a></h3>
+              <span class="project-status status-shipped">Shipped</span>
             </div>
-            <p class="project-desc">Real-time on-chain event monitor with configurable alerts. Tracks smart contract events, large transfers, and governance proposals.</p>
-            <div class="project-tags">
-              <span class="tag">TypeScript</span>
-              <span class="tag">Solidity</span>
-              <span class="tag">ethers.js</span>
+            <p class="project-desc">Parametric crop insurance for Kenyan smallholder farmers on Base. Weather-triggered payouts with M-Pesa integration via Pretium.</p>
+            <div class="project-meta">
+              <div class="project-tags">
+                <span class="tag">Solidity</span>
+                <span class="tag">Foundry</span>
+                <span class="tag">USDC</span>
+              </div>
+              <span class="project-chain"><span class="chain-dot chain-base"></span> Base L2</span>
             </div>
           </article>
+
+          <!-- Warden -->
+          <article class="project-card fade-up delay-4">
+            <div class="project-card-top">
+              <h3><a href="https://github.com/Antismart/warden" target="_blank" rel="noopener noreferrer">Warden <span class="arrow">&nearr;</span></a></h3>
+              <span class="project-status status-hackathon">Hackathon</span>
+            </div>
+            <p class="project-desc">SDK for delegating spending authority to AI agents with cryptographic on-chain enforcement. Rust lock scripts compiled to RISC-V.</p>
+            <div class="project-meta">
+              <div class="project-tags">
+                <span class="tag">Rust</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">RISC-V</span>
+              </div>
+              <span class="project-chain"><span class="chain-dot chain-ckb"></span> Nervos CKB</span>
+            </div>
+          </article>
+
+          <!-- Whale-opoly -->
+          <article class="project-card fade-up delay-5">
+            <div class="project-card-top">
+              <h3><a href="https://github.com/Antismart/whale-opoly" target="_blank" rel="noopener noreferrer">Whale-opoly <span class="arrow">&nearr;</span></a></h3>
+              <span class="project-status status-shipped">Shipped</span>
+            </div>
+            <p class="project-desc">On-chain blockchain board game built on StarkNet. Fully on-chain game logic with Cairo smart contracts and a live web frontend.</p>
+            <div class="project-meta">
+              <div class="project-tags">
+                <span class="tag">Cairo</span>
+                <span class="tag">StarkNet</span>
+                <span class="tag">Next.js</span>
+              </div>
+              <span class="project-chain"><span class="chain-dot" style="background:#ec796b"></span> StarkNet</span>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="chains-section">
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; font-family: var(--font-mono);">Multi-chain experience:</p>
+          <div class="chains-row">
+            <span class="chain-badge">Ethereum / Base</span>
+            <span class="chain-badge">Bitcoin / Stacks</span>
+            <span class="chain-badge">Nervos CKB</span>
+            <span class="chain-badge">NEAR</span>
+            <span class="chain-badge">ICP</span>
+            <span class="chain-badge">StarkNet</span>
+            <span class="chain-badge">Flow</span>
+          </div>
         </div>
       </div>
     </section>
@@ -566,32 +909,35 @@
             <h3>Languages</h3>
             <ul>
               <li>Rust</li>
-              <li>Go</li>
               <li>TypeScript</li>
               <li>Solidity</li>
-              <li>Python</li>
+              <li>Clarity</li>
+              <li>Go</li>
+              <li>Cairo</li>
             </ul>
           </div>
 
           <div class="skill-group">
-            <h3>Protocols</h3>
+            <h3>Protocols & Infra</h3>
             <ul>
-              <li>libp2p</li>
+              <li>libp2p / WebRTC</li>
               <li>IPFS / IPLD</li>
-              <li>WebRTC / QUIC</li>
+              <li>ZK-STARKs</li>
               <li>Noise Protocol</li>
               <li>gRPC</li>
+              <li>WASM / RISC-V</li>
             </ul>
           </div>
 
           <div class="skill-group">
-            <h3>Focus</h3>
+            <h3>Focus Areas</h3>
             <ul>
               <li>P2P Systems</li>
               <li>Cryptography</li>
-              <li>Distributed Systems</li>
-              <li>Smart Contracts</li>
               <li>Protocol Design</li>
+              <li>Smart Contracts</li>
+              <li>Privacy Tech</li>
+              <li>Distributed Systems</li>
             </ul>
           </div>
         </div>
@@ -602,27 +948,43 @@
       <div class="container">
         <div class="section-header">
           <span class="section-number">03</span>
-          <h2>Contact</h2>
+          <h2>Get in Touch</h2>
           <div class="section-line"></div>
         </div>
 
-        <p class="contact-text">Open to collaborations, protocol discussions, and hackathon teams. Reach out anywhere.</p>
+        <div class="contact-grid">
+          <p class="contact-text">Open to collaborations, protocol discussions, hackathon teams, and interesting problems. Reach out anywhere.</p>
 
-        <div class="contact-links">
-          <a class="contact-link" href="https://github.com/onchainchef" target="_blank" rel="noopener noreferrer">
+          <a class="contact-link" href="https://github.com/Antismart" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            <span class="contact-label">github</span>
-            onchainchef
+            <div class="contact-info">
+              <span class="contact-label">GitHub</span>
+              <span class="contact-value">Antismart</span>
+            </div>
           </a>
-          <a class="contact-link" href="https://twitter.com/onchainchef" target="_blank" rel="noopener noreferrer">
+
+          <a class="contact-link" href="https://x.com/antismart_" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16h-4.267z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
-            <span class="contact-label">twitter</span>
-            @onchainchef
+            <div class="contact-info">
+              <span class="contact-label">Twitter / X</span>
+              <span class="contact-value">@antismart_</span>
+            </div>
           </a>
-          <a class="contact-link" href="mailto:hello@onchainchef.dev">
+
+          <a class="contact-link" href="mailto:timbwamoses83@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <span class="contact-label">email</span>
-            hello@onchainchef.dev
+            <div class="contact-info">
+              <span class="contact-label">Email</span>
+              <span class="contact-value">timbwamoses83@gmail.com</span>
+            </div>
+          </a>
+
+          <a class="contact-link" href="https://github.com/Antismart/shadowmesh" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+            <div class="contact-info">
+              <span class="contact-label">Flagship</span>
+              <span class="contact-value">ShadowMesh</span>
+            </div>
           </a>
         </div>
       </div>
@@ -632,7 +994,11 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 onchainchef</p>
+      <p>&copy; 2026 Moses Timbwa</p>
+      <div class="footer-links">
+        <a href="https://github.com/Antismart" target="_blank" rel="noopener noreferrer">github</a>
+        <a href="https://x.com/antismart_" target="_blank" rel="noopener noreferrer">twitter</a>
+      </div>
       <p>Nairobi, Kenya</p>
     </div>
   </footer>
